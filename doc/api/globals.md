@@ -35,7 +35,7 @@ Example: running `node example.js` from `/Users/mjr`
 
 ```js
 console.log(__dirname);
-// /Users/mjr
+// Prints: /Users/mjr
 ```
 
 `__dirname` isn't actually a global but rather local to each module.
@@ -68,7 +68,7 @@ Example: running `node example.js` from `/Users/mjr`
 
 ```js
 console.log(__filename);
-// /Users/mjr/example.js
+// Prints: /Users/mjr/example.js
 ```
 
 `__filename` isn't actually a global but rather local to each module.
@@ -216,9 +216,16 @@ However, in practice, there are much better ways to do this, such as
 loading modules via some other Node.js program, or compiling them to
 JavaScript ahead of time.
 
-Since the Module system is locked, this feature will probably never go
+Since the module system is locked, this feature will probably never go
 away.  However, it may have subtle bugs and complexities that are best
 left untouched.
+
+Note that the number of file system operations that the module system
+has to perform in order to resolve a `require(...)` statement to a
+filename scales linearly with the number of registered extensions.
+
+In other words, adding extensions slows down the module loader and
+should be discouraged.
 
 ### require.resolve()
 <!-- YAML
